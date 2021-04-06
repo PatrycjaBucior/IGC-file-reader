@@ -1,0 +1,29 @@
+body{
+    background-color: rgb(255,252,252);
+}
+
+#block{
+    width: 25%;
+    float: left;
+    margin-left: 10%;
+    margin-right: 5%;
+}
+
+#form{
+    float: left;
+    margin-left: 5%;
+}
+
+#info{
+    float: left;
+    margin: 5%;
+    text-align: left;
+}
+
+#map{
+    float: left;
+}
+
+#empty{
+    clear:both;
+}
