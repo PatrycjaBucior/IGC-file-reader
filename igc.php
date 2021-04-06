@@ -4,17 +4,17 @@ require 'Trackpoint.php';
 
 class igc
 {
-    public $file;               // igc file from link
-    public $records_array;      // igc file converted into array
-    public $trackpoints_array;
-    public $start_point;        // first tracking point
-    public $end_point;          // last tracking point
+    private $file;               // igc file from link
+    private $records_array;      // igc file converted into array
+    private $trackpoints_array;
+    private $start_point;        // first tracking point
+    private $end_point;          // last tracking point
     //flight_info
-    public $date;               // UTC date of flight
-    public $fix_accuracy;       // typical fix accuracy in meters
-    public $pilot_name;
-    public $glider_model;       // name of the glider model
-    public $glider_id;          // glider registration number
+    private $date;               // UTC date of flight
+    private $fix_accuracy;       // typical fix accuracy in meters
+    private $pilot_name;
+    private $glider_model;       // name of the glider model
+    private $glider_id;          // glider registration number
 
     public function __construct($url)
     {
