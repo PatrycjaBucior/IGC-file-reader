@@ -21,9 +21,9 @@ class Trackpoint
         $this->lat['decimal_minutes'] = substr($record,11,3);
         $this->lat['direction'] = substr($record,14,1);
 
-        $pm = $this->lat['direction']=="S"?"-":"";
-        $dd = (($this->lat['minutes'].".".$this->lat['decimal_minutes'])/60)+$this->lat['degrees'];
-        $this->lat['decimal_degrees'] = $pm.$dd;
+        $sign = $this->lat['direction']=="S"?"-":"";
+        $decimal = (($this->lat['minutes'].".".$this->lat['decimal_minutes'])/60)+$this->lat['degrees'];
+        $this->lat['decimal_degrees'] = $sign . $decimal;
 
         // longitude
         $this->long['degrees'] = substr($record,16,2);
@@ -31,9 +31,9 @@ class Trackpoint
         $this->long['decimal_minutes'] = substr($record,20,3);
         $this->long['direction'] = substr($record,23,1);
 
-        $pm = $this->long['direction']=="W"?"-":"";
-        $dd = (($this->long['minutes'].".".$this->long['decimal_minutes'])/60)+$this->long['degrees'];
-        $this->long['decimal_degrees'] = $pm.$dd;
+        $sign = $this->long['direction']=="W"?"-":"";
+        $decimal = (($this->long['minutes'].".".$this->long['decimal_minutes'])/60)+$this->long['degrees'];
+        $this->long['decimal_degrees'] = $sign . $decimal;
 
         // altitude
         $this->alt = (int) substr($record, 25, 5);
