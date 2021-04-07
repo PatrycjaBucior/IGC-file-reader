@@ -4,7 +4,6 @@ require 'Trackpoint.php';
 
 class igc
 {
-    private $file;               // igc file from link
     private $records_array;      // igc file converted into array
     private $trackpoints_array;
     private $start_point;        // first tracking point
@@ -18,9 +17,9 @@ class igc
 
     public function __construct($url)
     {
-        $this->file = file_get_contents($url);
-        $this->file = preg_replace('/\s+/', ' ', $this->file);
-        $this->records_array = explode(' ', $this->file);
+        $file = file_get_contents($url);
+        $file = preg_replace('/\s+/', ' ', $file);
+        $this->records_array = explode(' ', $file);
     }
 
     public function readRecords()
@@ -178,6 +177,44 @@ class igc
                 </div>';
 
         return $code;
+    }
+
+    public function jsonInfo()
+    {
+        $info = [
+            'Date' => $this->date['dd'] . '.' . $this->date['mm'] . '.20' . $this->date['yy'],
+            'Start time' => $this->start_point->time['h'] . ':' . $this->start_point->time['m'],
+            'End time' => $this->end_point->time['h'] . ':' . $this->end_point->time['m'],
+            'Starting point coordinates' => '(' . $this->start_point->lat['degrees']
+                                            . ' grades '
+                                            . $this->start_point->lat['minutes'] . ','
+                                            . $this->start_point->lat['decimal_minutes']
+                                            . ' minutes '
+                                            . $this->start_point->lat['direction'] . ') ('
+                                            . $this->start_point->long['degrees']
+                                            . ' grades '
+                                            . $this->start_point->long['minutes'] . ','
+                                            . $this->start_point->long['decimal_minutes']
+                                            . ' minutes '
+                                            . $this->start_point->long['direction'] . ')',
+            'Ending point coordinates' =>   '(' . $this->end_point->lat['degrees']
+                                            . ' grades '
+                                            . $this->end_point->lat['minutes'] . ','
+                                            . $this->end_point->lat['decimal_minutes']
+                                            . ' minutes '
+                                            . $this->end_point->lat['direction'] . ') ('
+                                            . $this->end_point->long['degrees']
+                                            . ' grades '
+                                            . $this->end_point->long['minutes'] . ','
+                                            . $this->end_point->long['decimal_minutes']
+                                            . ' minutes '
+                                            . $this->end_point->long['direction'] . ')',
+            'Pilot name' => $this->pilot_name,
+            'Glider model' => $this->glider_model,
+            'Glider ID' => $this->glider_id,
+            'Fix accuracy' => $this->fix_accuracy . '[m]'
+        ];
+        return json_encode($info);
     }
 
     public function getMap($key, $width, $height)
